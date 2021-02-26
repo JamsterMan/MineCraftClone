@@ -11,9 +11,14 @@ public class CubeGenerator : MonoBehaviour
     
     //Vector3[] vertices;
     //int[][] triangles;//double array for culling sides of cube not visable
-    List<int> visableTriangles;
-    List<Vector3> visableVertices;
-    int verticesIndex;
+    private List<int> visableTriangles;
+    private List<Vector3> visableVertices;
+    private List<Vector2> visableUvs;
+    private int verticesIndex;
+
+    private readonly int chunkWidth = 5;
+    private readonly int chunkHieght = 10;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +29,16 @@ public class CubeGenerator : MonoBehaviour
         verticesIndex = 0;
         visableTriangles = new List<int>();
         visableVertices = new List<Vector3>();
-        CreateCube(new Vector3(0, 0, 0) );
-        CreateCube(new Vector3(0, 2, 0) );
-        CreateCube(new Vector3(-4, 0, 0) );
+        visableUvs = new List<Vector2>();
+        int x, y, z;
+        for (x = 0; x < chunkWidth; x++) {
+            for (y = 0; y < chunkHieght; y++) {
+                for (z = 0; z < chunkWidth; z++) {
+                    CreateCube(new Vector3(x, y, z));
+                }
+            }
+        }
+        //CreateCube(new Vector3(0, 0, 0) );
         UpdateMesh();
     }
 
@@ -40,6 +52,8 @@ public class CubeGenerator : MonoBehaviour
                 visableVertices.Add(cubePosition + CubeData.vertices[triangleIndex]);
                 visableTriangles.Add(verticesIndex);
                 verticesIndex++;
+
+                visableUvs.Add( CubeData.uvs[j] );
             }
         }
     }
@@ -50,6 +64,7 @@ public class CubeGenerator : MonoBehaviour
 
         mesh.vertices = visableVertices.ToArray();
         mesh.triangles = visableTriangles.ToArray();
+        mesh.uv = visableUvs.ToArray();
         mesh.RecalculateNormals();
     }
 }

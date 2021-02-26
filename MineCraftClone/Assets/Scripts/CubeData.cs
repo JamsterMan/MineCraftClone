@@ -17,21 +17,31 @@ public static class CubeData
         };
 
 
-    public static readonly int[,] triangles = new int[,]
+    public static readonly int[,] triangles = new int[6,6]
         {
             //front
-            { 0, 2, 1, 0, 3, 2},
+            { 0, 3, 1, 1, 3, 2 },
             //top
-            { 2, 3, 4, 2, 4, 5 },
+            { 3, 4, 2, 2, 4, 5 },
             //right
-            { 1, 2, 5, 1, 5, 6 },
+            { 1, 2, 6, 6, 2, 5 },
             //left
-            { 0, 7, 4, 0, 4, 3 },
+            { 7, 4, 0, 0, 4, 3 },
             //back
-            { 5, 4, 7, 5, 7, 6 },
+            { 6, 5, 7, 7, 5, 4 },
             //bottom
-            { 0, 6, 7, 0, 1, 6 }
+            { 1, 6, 0, 0, 6, 7 }
 
+        };
+
+    public static readonly Vector2[] uvs = new Vector2[6]
+        {
+            new Vector2 ( 0.0f, 0.0f),
+            new Vector2 ( 0.0f, 1.0f),
+            new Vector2 ( 1.0f, 0.0f),
+            new Vector2 ( 1.0f, 0.0f),
+            new Vector2 ( 0.0f, 1.0f),
+            new Vector2 ( 1.0f, 1.0f),
         };
 
 }
