@@ -16,8 +16,7 @@ public class CubeGenerator : MonoBehaviour
     private List<Vector2> visableUvs;
     private int verticesIndex;
 
-    private readonly int chunkWidth = 5;
-    private readonly int chunkHieght = 10;
+    bool[,,] isCube = new bool[CubeData.chunkWidth, CubeData.chunkHieght, CubeData.chunkWidth];
 
 
     // Start is called before the first frame update
@@ -30,32 +29,69 @@ public class CubeGenerator : MonoBehaviour
         visableTriangles = new List<int>();
         visableVertices = new List<Vector3>();
         visableUvs = new List<Vector2>();
+        FillIsBool();
+        CreateChunk();
+        UpdateMesh();
+    }
+
+    void CreateChunk()
+    {
         int x, y, z;
-        for (x = 0; x < chunkWidth; x++) {
-            for (y = 0; y < chunkHieght; y++) {
-                for (z = 0; z < chunkWidth; z++) {
-                    CreateCube(new Vector3(x, y, z));
+        //float noiseScale = 10.0f;//perlin noise in unity changes base on the decimals
+        for (x = 0; x < CubeData.chunkWidth; x++) {
+            for (z = 0; z < CubeData.chunkWidth; z++) {
+                //add perlin noise to chunk hieght to vary hieght
+                for (y = 0; y < CubeData.chunkHieght; y++) {
+                    CreateCube(new Vector3(x, y, z) + transform.position);
+                    /*
+                     * perlin noise is only needed for 
+                     */
+                    //Debug.Log(  Mathf.PerlinNoise(x /noiseScale, z /noiseScale) );
+                    //Debug.Log(  Mathf.PerlinNoise(x + transform.position.x, z + transform.position.z) );
                 }
             }
         }
-        //CreateCube(new Vector3(0, 0, 0) );
-        UpdateMesh();
+    }
+
+    void FillIsBool()
+    {
+        int x, y, z;
+        for (x = 0; x < CubeData.chunkWidth; x++) {
+            for (z = 0; z < CubeData.chunkWidth; z++) {
+                for (y = 0; y < CubeData.chunkHieght; y++) {
+                    isCube[x, y, z] = true;
+                }
+            }
+        }
     }
 
     void CreateCube(Vector3 cubePosition)
     {
         int triangleIndex;
         for (int i = 0; i < cubeSides; i++) {//front, top, right, left, back, bottom
-            for (int j = 0; j < cubeSides; j++) {
-                //remove non-visable sides
-                triangleIndex = CubeData.triangles[i, j];
-                visableVertices.Add(cubePosition + CubeData.vertices[triangleIndex]);
-                visableTriangles.Add(verticesIndex);
-                verticesIndex++;
+            //remove non-visable sides
+            if (!ShowSide(cubePosition + CubeData.faceCheck[i])) {
+                for (int j = 0; j < cubeSides; j++) {
+                    triangleIndex = CubeData.triangles[i, j];
+                    visableVertices.Add(cubePosition + CubeData.vertices[triangleIndex]);
+                    visableTriangles.Add(verticesIndex);
+                    verticesIndex++;
 
-                visableUvs.Add( CubeData.uvs[j] );
+                    visableUvs.Add(CubeData.uvs[j]);
+                }
             }
         }
+    }
+
+    bool ShowSide(Vector3 cubePosition)//determine if the side is blocked by a block
+    {
+        int x = Mathf.FloorToInt(cubePosition.x);
+        int y = Mathf.FloorToInt(cubePosition.y);
+        int z = Mathf.FloorToInt(cubePosition.z);
+        if (x < 0 || x > CubeData.chunkWidth-1 || y < 0 || y > CubeData.chunkHieght-1 || z < 0 || z > CubeData.chunkWidth-1 )
+            return false;
+
+        return isCube[x, y, z];
     }
 
     void UpdateMesh()
