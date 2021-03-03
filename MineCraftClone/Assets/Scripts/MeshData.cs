@@ -4,8 +4,9 @@ using UnityEngine;
 
 public static class MeshData 
 {
-    public static readonly int chunkWidth = 16;
-    public static readonly int chunkHieght = 20;
+    public static readonly int chunkWidth = 10;
+    public static readonly int chunkHieght = 50;
+    public static readonly int chunkHieghtMax = 100;//hieght limit for the world
 
     //change this number any time the atlas texture gets more blocks added to it
     public static readonly int blocksPerAtlasRow = 2;//number of different blocks accross a atlas
@@ -36,7 +37,6 @@ public static class MeshData
             { 6, 5, 7, 4 },
             //bottom
             { 1, 6, 0, 7 }
-
         };
 
     public static readonly Vector2[] uvs = new Vector2[4]

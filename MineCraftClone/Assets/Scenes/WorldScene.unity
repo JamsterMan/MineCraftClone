@@ -289,13 +289,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.21218818, y: 0.23654175, z: -0.063882925, w: 0.9460144}
-  m_LocalPosition: {x: -5.36, y: 13.19, z: -9.48}
+  m_LocalRotation: {x: 0.34428796, y: 0.17224331, z: -0.064410426, w: 0.92067873}
+  m_LocalPosition: {x: -9.05, y: 57.46, z: -21.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 25.575, y: 27.781002, z: -1.3010001}
+  m_LocalEulerAnglesHint: {x: 41.007004, y: 21.193, z: 0}
 --- !u!1 &1467212044
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 1467212046}
   - component: {fileID: 1467212045}
   m_Layer: 0
-  m_Name: CubeGenerator
+  m_Name: ChunkGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -387,4 +387,88 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1955019059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1955019061}
+  - component: {fileID: 1955019060}
+  m_Layer: 0
+  m_Name: WorldGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1955019060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955019059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871d14e804b07454ca6ecb8c645db239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CubeTypes:
+  - type: 0
+    frontTextureID: 0
+    topTextureID: 0
+    rightTextureID: 0
+    leftTextureID: 0
+    backTextureID: 0
+    bottomTextureID: 0
+    isVisable: 1
+  - type: 1
+    frontTextureID: 0
+    topTextureID: 1
+    rightTextureID: 0
+    leftTextureID: 0
+    backTextureID: 0
+    bottomTextureID: 0
+    isVisable: 1
+  - type: 2
+    frontTextureID: 2
+    topTextureID: 2
+    rightTextureID: 2
+    leftTextureID: 2
+    backTextureID: 2
+    bottomTextureID: 2
+    isVisable: 1
+  - type: 3
+    frontTextureID: 3
+    topTextureID: 3
+    rightTextureID: 3
+    leftTextureID: 3
+    backTextureID: 3
+    bottomTextureID: 3
+    isVisable: 1
+  - type: 4
+    frontTextureID: -1
+    topTextureID: -1
+    rightTextureID: -1
+    leftTextureID: -1
+    backTextureID: -1
+    bottomTextureID: -1
+    isVisable: 0
+--- !u!4 &1955019061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955019059}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
