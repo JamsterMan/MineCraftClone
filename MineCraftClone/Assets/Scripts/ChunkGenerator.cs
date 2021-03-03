@@ -46,7 +46,7 @@ public class ChunkGenerator : MonoBehaviour
                     /*
                      * perlin noise is only needed for 
                      */
-                    //Debug.Log(  Mathf.PerlinNoise(x /noiseScale, z /noiseScale) );
+                    //Debug.Log(  Mathf.PerlinNoise(x /noiseScale, z /noiseScale) ); add a transform.postion component so that all chunks are formed differently
                     //Debug.Log(  Mathf.PerlinNoise(x + transform.position.x, z + transform.position.z) );
                 }
             }
