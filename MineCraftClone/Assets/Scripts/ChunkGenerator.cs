@@ -38,11 +38,10 @@ public class ChunkGenerator : MonoBehaviour
 
     void CreateChunk()
     {
-        int x, y, z;//, noiseOffset;
+        int x, y, z;
         for (x = 0; x < MeshData.chunkWidth; x++) {
             for (z = 0; z < MeshData.chunkWidth; z++) {
-                //noiseOffset = Mathf.FloorToInt( Mathf.PerlinNoise( (x+transform.position.x) / noiseScale, (z + transform.position.z) / noiseScale)*offsetScale );//add perlin noise to chunk hieght to vary hieght
-                for (y = 0; y < MeshData.chunkHieghtMax; y++) {//MeshData.chunkHieght + noiseOffset
+                for (y = 0; y < MeshData.chunkHieghtMax; y++) {
                     CreateCube(new Vector3(x, y, z));//transform position to place cube in the correct chunk
                 }
             }
@@ -68,16 +67,12 @@ public class ChunkGenerator : MonoBehaviour
                     } else {
                         isCube[x, y, z] = (byte)CubeData.CubeType.air;
                     }
-                    /*if (y < MeshData.chunkHieght + perlin noise modifier) {
-                        isCube[x, y, z] = 0;
-                    } else{
-                        isCube[x, y, z] = false;
-                    }*/
                 }
             }
         }
     }
 
+    //adds visable sides of the cube at cubePosition t othe mesh lists (visableVertices and visableTriangles)
     void CreateCube(Vector3 cubePosition)
     {
         
@@ -111,6 +106,7 @@ public class ChunkGenerator : MonoBehaviour
         }
     }
 
+    //function to texture blocks based on the id
     void TextureBlocks(int id)//id == id of the texture in the atlas, different from the cube type id
     {
         float y = id / MeshData.blocksPerAtlasRow;
@@ -126,6 +122,7 @@ public class ChunkGenerator : MonoBehaviour
         visableUvs.Add(new Vector2(x + normalizedSize, y + normalizedSize));
     }
 
+    //determines if the side of a cube is visable
     bool ShowSide(Vector3 cubePosition)//determine if the side is blocked by a block
     {
         int x = Mathf.FloorToInt(cubePosition.x);
@@ -137,6 +134,7 @@ public class ChunkGenerator : MonoBehaviour
         return world.CubeTypes[(int)isCube[x, y, z]].isVisable;
     }
 
+    //sets up the mesh for this chunk
     void UpdateMesh()
     {
         mesh.Clear();

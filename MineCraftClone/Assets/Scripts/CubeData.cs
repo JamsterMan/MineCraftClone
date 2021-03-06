@@ -5,13 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class CubeData
 {
-    public enum CubeType //this should be put in meshdata or some other script
+    public enum CubeType //this should be put in meshdata or some other script, 0 to 255 (caused by using byte instead of int), max 255 blocks
     {
         dirt,//0
         grass,//1
         stone,//2
         voidStone,//3
-        air//4
+
+
+
+        air//
     };
 
     public CubeType type;

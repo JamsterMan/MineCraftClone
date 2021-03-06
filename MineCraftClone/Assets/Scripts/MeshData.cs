@@ -11,8 +11,8 @@ public static class MeshData
     //change this number any time the atlas texture gets more blocks added to it
     public static readonly int blocksPerAtlasRow = 2;//number of different blocks accross a atlas
 
-    public static readonly Vector3[] vertices = new Vector3[8]
-        {   //repeated vertices needed to stop unity from smoothing the vertices
+    public static readonly Vector3[] vertices = new Vector3[8]//vertices used for drawing cubes
+        {
             new Vector3 (0f,0f,0f),//0
             new Vector3 (1f,0f,0f),//1
             new Vector3 (1f,1f,0f),//2
@@ -23,7 +23,7 @@ public static class MeshData
             new Vector3 (0f,0f,1f),//7
         };
 
-    public static readonly int[,] triangles = new int[6,4]
+    public static readonly int[,] triangles = new int[6,4]//ints in this 2d array reffer to the vertices in the vertices array
         {
             //front
             { 0, 3, 1, 2 },
@@ -39,7 +39,7 @@ public static class MeshData
             { 1, 6, 0, 7 }
         };
 
-    public static readonly Vector2[] uvs = new Vector2[4]
+    public static readonly Vector2[] uvs = new Vector2[4]//used to make sure textures are the correct direction
         {
             new Vector2 ( 0.0f, 0.0f),
             new Vector2 ( 0.0f, 1.0f),
@@ -47,8 +47,8 @@ public static class MeshData
             new Vector2 ( 1.0f, 1.0f),
         };
 
-    public static readonly Vector3[] faceCheck = new Vector3[6]
-        {   //repeated vertices needed to stop unity from smoothing the vertices
+    public static readonly Vector3[] faceCheck = new Vector3[6]//these vectors are used to check if each side of a cube should be drawn
+        {
             new Vector3 (0f,0f,-1f),//front
             new Vector3 (0f,1f,0f),//top
             new Vector3 (1f,0f,0f),//right
