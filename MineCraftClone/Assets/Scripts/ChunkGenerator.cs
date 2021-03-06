@@ -54,7 +54,7 @@ public class ChunkGenerator : MonoBehaviour
         int x, y, z, noiseOffset, yHieght, dirtHieght = 5;
         for (x = 0; x < MeshData.chunkWidth; x++) {
             for (z = 0; z < MeshData.chunkWidth; z++) {
-                noiseOffset = Mathf.FloorToInt(Mathf.PerlinNoise((x + transform.position.x) / noiseScale, (z + transform.position.z) / noiseScale) * offsetScale);//add perlin noise to chunk hieght to vary hieght
+                noiseOffset = Mathf.FloorToInt(Mathf.PerlinNoise( ((float)(x + transform.position.x)) / noiseScale, ((float)(z + transform.position.z)) / noiseScale) * offsetScale);//add perlin noise to chunk hieght to vary hieght
                 yHieght = MeshData.chunkHieght + noiseOffset;
                 for (y = 0; y < MeshData.chunkHieghtMax; y++) {
                     if(y == 0) {
