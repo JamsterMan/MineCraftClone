@@ -17,15 +17,16 @@ public class ChunkGenerator : MonoBehaviour
 
     public float noiseScale = 10.0f, offsetScale = 10.0f;//perlin noise in unity changes base on the decimals, offsetScale determines how much the noise changes the height
 
-    byte[,,] isCube = new byte[MeshData.chunkWidth, MeshData.chunkHieghtMax, MeshData.chunkWidth];
+    byte[,,] isCube;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        isCube = new byte[MeshData.chunkWidth, MeshData.chunkHieghtMax, MeshData.chunkWidth];
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
-        world = GameObject.Find("WorldGenerator").GetComponent<WorldGenerator>(); ;
+        world = GameObject.Find("WorldGenerator").GetComponent<WorldGenerator>();
 
         verticesIndex = 0;
         visableTriangles = new List<int>();
@@ -75,7 +76,6 @@ public class ChunkGenerator : MonoBehaviour
     //adds visable sides of the cube at cubePosition t othe mesh lists (visableVertices and visableTriangles)
     void CreateCube(Vector3 cubePosition)
     {
-        
         int TextureID;
         CubeData cube = world.CubeTypes[(int)isCube[Mathf.FloorToInt(cubePosition.x), Mathf.FloorToInt(cubePosition.y), Mathf.FloorToInt(cubePosition.z)]];//gets the cubedata of the block being drawn
 
@@ -101,7 +101,6 @@ public class ChunkGenerator : MonoBehaviour
                 visableTriangles.Add(verticesIndex+3);
 
                 verticesIndex +=4;
-
             }
         }
     }
