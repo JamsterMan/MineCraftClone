@@ -327,6 +327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47ebc20391c1f8c4a9413e051d4207cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noiseScale: 10
+  offsetScale: 10
 --- !u!23 &1467212046
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -451,12 +453,12 @@ MonoBehaviour:
     bottomTextureID: 3
     isVisable: 1
   - type: 4
-    frontTextureID: -1
-    topTextureID: -1
-    rightTextureID: -1
-    leftTextureID: -1
-    backTextureID: -1
-    bottomTextureID: -1
+    frontTextureID: 3
+    topTextureID: 3
+    rightTextureID: 3
+    leftTextureID: 3
+    backTextureID: 3
+    bottomTextureID: 3
     isVisable: 0
 --- !u!4 &1955019061
 Transform:
