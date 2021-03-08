@@ -15,8 +15,6 @@ public class ChunkGenerator : MonoBehaviour
     private int verticesIndex;
     WorldGenerator world;
 
-    public float noiseScale = 10.0f, offsetScale = 10.0f;//perlin noise in unity changes base on the decimals, offsetScale determines how much the noise changes the height
-
     byte[,,] isCube;
 
 
@@ -32,6 +30,7 @@ public class ChunkGenerator : MonoBehaviour
         visableTriangles = new List<int>();
         visableVertices = new List<Vector3>();
         visableUvs = new List<Vector2>();
+
         FillChunk();
         CreateChunk();
         UpdateMesh();
@@ -51,11 +50,12 @@ public class ChunkGenerator : MonoBehaviour
 
     void FillChunk()
     {
-        int x, y, z, noiseOffset, yHieght, dirtHieght = 5;
+        int x, y, z, dirtHieght = 5;
         for (x = 0; x < MeshData.chunkWidth; x++) {
             for (z = 0; z < MeshData.chunkWidth; z++) {
-                noiseOffset = Mathf.FloorToInt(Mathf.PerlinNoise( ((float)(x + transform.position.x)) / noiseScale, ((float)(z + transform.position.z)) / noiseScale) * offsetScale);//add perlin noise to chunk hieght to vary hieght
-                yHieght = MeshData.chunkHieght + noiseOffset;
+                int noiseOffset = AddNoise(x,z);//add perlin noise to chunk hieght to vary hieght
+                int yHieght = MeshData.chunkHieght + noiseOffset;
+
                 for (y = 0; y < MeshData.chunkHieghtMax; y++) {
                     if(y == 0) {
                         isCube[x, y, z] = (byte)CubeData.CubeType.voidStone;
@@ -73,10 +73,16 @@ public class ChunkGenerator : MonoBehaviour
         }
     }
 
+    int AddNoise(int x, int z)
+    {
+        float perlinX = ((float)(x + transform.position.x)) / world.noiseScale;
+        float perlinZ = ((float)(z + transform.position.z)) / world.noiseScale;
+        return Mathf.FloorToInt(Mathf.PerlinNoise(perlinX + world.perlinOffsetX, perlinZ + world.perlinOffsetZ) * world.offsetScale);//add perlin noise to chunk hieght to vary hieght
+    }
+
     //adds visable sides of the cube at cubePosition t othe mesh lists (visableVertices and visableTriangles)
     void CreateCube(Vector3 cubePosition)
     {
-        int TextureID;
         CubeData cube = world.CubeTypes[(int)isCube[Mathf.FloorToInt(cubePosition.x), Mathf.FloorToInt(cubePosition.y), Mathf.FloorToInt(cubePosition.z)]];//gets the cubedata of the block being drawn
 
         if (cube.type == CubeData.CubeType.air)//air is not a visable block
@@ -85,12 +91,12 @@ public class ChunkGenerator : MonoBehaviour
         for (int i = 0; i < cubeSides; i++) {//front, top, right, left, back, bottom
             //remove non-visable sides
             if (!ShowSide(cubePosition + MeshData.faceCheck[i])) {
-                visableVertices.Add(cubePosition + MeshData.vertices[MeshData.triangles[i, 0]] + transform.position);
-                visableVertices.Add(cubePosition + MeshData.vertices[MeshData.triangles[i, 1]] + transform.position);
-                visableVertices.Add(cubePosition + MeshData.vertices[MeshData.triangles[i, 2]] + transform.position);
-                visableVertices.Add(cubePosition + MeshData.vertices[MeshData.triangles[i, 3]] + transform.position);
+                visableVertices.Add(cubePosition + MeshData.vertices[MeshData.triangles[i, 0]] );
+                visableVertices.Add(cubePosition + MeshData.vertices[MeshData.triangles[i, 1]] );
+                visableVertices.Add(cubePosition + MeshData.vertices[MeshData.triangles[i, 2]] );
+                visableVertices.Add(cubePosition + MeshData.vertices[MeshData.triangles[i, 3]] );
 
-                TextureID = cube.GetTextureID(i);//gets TextureID for the cube texture, i == the face being drawn
+                int TextureID = cube.GetTextureID(i);//gets TextureID for the cube texture, i == the face being drawn
                 TextureBlocks(TextureID);//applies the texture based on the TextureID
 
                 visableTriangles.Add(verticesIndex);

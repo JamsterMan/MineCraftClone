@@ -327,6 +327,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chunk: {fileID: 7039929070537829618, guid: 709397c24fa45054b98b14affd17d2c8, type: 3}
   WorldSize: 10
+  noiseScale: 15.4
+  offsetScale: 10
   CubeTypes:
   - type: 0
     frontTextureID: 0

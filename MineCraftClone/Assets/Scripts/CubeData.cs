@@ -14,7 +14,7 @@ public class CubeData
 
 
 
-        air//
+        air//4
     };
 
     public CubeType type;
