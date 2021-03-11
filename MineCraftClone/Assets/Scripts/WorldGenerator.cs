@@ -9,8 +9,13 @@ public class WorldGenerator : MonoBehaviour
     public float perlinOffsetX, perlinOffsetZ;
     public float noiseScale = 0.3f, offsetScale = 10.0f;//perlin noise in unity changes base on the decimals, offsetScale determines how much the noise changes the height
 
+    public Transform player;
+    public LayerMask layer;
+
     public CubeData[] CubeTypes;
     private readonly int chunkSize = 10;
+
+    //private Dictionary<Vector3, Object> worldMap;
 
 
     // Start is called before the first frame update
@@ -19,13 +24,15 @@ public class WorldGenerator : MonoBehaviour
         perlinOffsetX = Random.Range(0f, 9999f);//for random world geration
         perlinOffsetZ = Random.Range(0f, 9999f);//for random world geration
 
-        for (int i = 0; i < WorldSize; i++) {
-            for (int j = 0; j < WorldSize; j++) {
+        int start = (int)Mathf.Floor(WorldSize / 2);
+        int end = (int)Mathf.Ceil(WorldSize / 2);
+        for (int i = -start; i < end; i++) {
+            for (int j = -start; j < end; j++) {
                 Instantiate(chunk, new Vector3(i*chunkSize, 0, j*chunkSize), Quaternion.identity);
             }
         }
-        //Instantiate(chunk, new Vector3(0, 0, 5), Quaternion.identity);
-        //Instantiate(chunk, new Vector3(5, 0, 0), Quaternion.identity);
+
+        //set player to ground here
     }
 
     // Update is called once per frame

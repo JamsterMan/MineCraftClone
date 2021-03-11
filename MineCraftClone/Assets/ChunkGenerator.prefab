@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7039929070537829617}
   - component: {fileID: 7039929070537829616}
   - component: {fileID: 7039929070537829619}
-  m_Layer: 0
+  - component: {fileID: -2146388201019873635}
+  m_Layer: 8
   m_Name: ChunkGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,5 +93,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47ebc20391c1f8c4a9413e051d4207cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noiseScale: 10
-  offsetScale: 10
+--- !u!64 &-2146388201019873635
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7039929070537829618}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}

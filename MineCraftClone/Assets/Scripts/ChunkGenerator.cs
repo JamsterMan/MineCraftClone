@@ -8,6 +8,7 @@ public class ChunkGenerator : MonoBehaviour
     //change class name to chuck generator
     private const int cubeSides = 6;
     Mesh mesh;
+    MeshCollider meshCollider;
     
     private List<int> visableTriangles;
     private List<Vector3> visableVertices;
@@ -24,6 +25,7 @@ public class ChunkGenerator : MonoBehaviour
         isCube = new byte[MeshData.chunkWidth, MeshData.chunkHieghtMax, MeshData.chunkWidth];
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
+        meshCollider =  GetComponent<MeshCollider>();
         world = GameObject.Find("WorldGenerator").GetComponent<WorldGenerator>();
 
         verticesIndex = 0;
@@ -148,5 +150,7 @@ public class ChunkGenerator : MonoBehaviour
         mesh.triangles = visableTriangles.ToArray();
         mesh.uv = visableUvs.ToArray();
         mesh.RecalculateNormals();
+
+        meshCollider.sharedMesh = mesh;
     }
 }
