@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter),typeof(Transform))]
 public class ChunkGenerator : MonoBehaviour
 {
-    //change class name to chuck generator
+    public byte[,,] isCube;
+
     private const int cubeSides = 6;
     Mesh mesh;
     MeshCollider meshCollider;
@@ -15,8 +16,6 @@ public class ChunkGenerator : MonoBehaviour
     private List<Vector2> visableUvs;
     private int verticesIndex;
     WorldGenerator world;
-
-    byte[,,] isCube;
 
 
     // Start is called before the first frame update
