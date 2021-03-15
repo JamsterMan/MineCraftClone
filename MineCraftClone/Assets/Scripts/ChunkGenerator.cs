@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter),typeof(Transform))]
+[RequireComponent(typeof(MeshFilter))]
 public class ChunkGenerator : MonoBehaviour
 {
-    public byte[,,] isCube;
+    public byte[,,] isCube;//to update this add a public function here
 
     private const int cubeSides = 6;
     Mesh mesh;

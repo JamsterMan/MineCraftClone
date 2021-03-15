@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871d14e804b07454ca6ecb8c645db239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunk: {fileID: 7039929070537829619, guid: 709397c24fa45054b98b14affd17d2c8, type: 3}
+  chunk: {fileID: 7039929070537829618, guid: 709397c24fa45054b98b14affd17d2c8, type: 3}
   WorldSize: 10
   perlinOffsetX: 0
   perlinOffsetZ: 0
@@ -550,6 +550,14 @@ MonoBehaviour:
     m_Bits: 256
   CubeTypes:
   - type: 0
+    frontTextureID: 3
+    topTextureID: 3
+    rightTextureID: 3
+    leftTextureID: 3
+    backTextureID: 3
+    bottomTextureID: 3
+    isVisable: 0
+  - type: 1
     frontTextureID: 0
     topTextureID: 0
     rightTextureID: 0
@@ -557,29 +565,21 @@ MonoBehaviour:
     backTextureID: 0
     bottomTextureID: 0
     isVisable: 1
-  - type: 1
-    frontTextureID: 0
+  - type: 2
+    frontTextureID: 11
     topTextureID: 1
-    rightTextureID: 0
-    leftTextureID: 0
-    backTextureID: 0
+    rightTextureID: 1
+    leftTextureID: 1
+    backTextureID: 1
     bottomTextureID: 0
     isVisable: 1
-  - type: 2
+  - type: 3
     frontTextureID: 2
     topTextureID: 2
     rightTextureID: 2
     leftTextureID: 2
     backTextureID: 2
     bottomTextureID: 2
-    isVisable: 1
-  - type: 3
-    frontTextureID: 3
-    topTextureID: 3
-    rightTextureID: 3
-    leftTextureID: 3
-    backTextureID: 3
-    bottomTextureID: 3
     isVisable: 1
   - type: 4
     frontTextureID: 3
@@ -588,7 +588,7 @@ MonoBehaviour:
     leftTextureID: 3
     backTextureID: 3
     bottomTextureID: 3
-    isVisable: 0
+    isVisable: 1
 --- !u!4 &1955019061
 Transform:
   m_ObjectHideFlags: 0

@@ -7,14 +7,11 @@ public class CubeData
 {
     public enum CubeType //this should be put in meshdata or some other script, 0 to 255 (caused by using byte instead of int), max 255 blocks
     {
-        dirt,//0
-        grass,//1
-        stone,//2
-        voidStone,//3
-
-
-
-        air//4
+        air,//0
+        dirt,//1
+        grass,//2
+        stone,//3
+        voidStone,//4
     };
 
     public CubeType type;
