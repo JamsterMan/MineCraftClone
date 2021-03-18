@@ -19,7 +19,7 @@ public class WorldGenerator : MonoBehaviour
 
     private Dictionary<Vector2, GameObject> worldMap = new Dictionary<Vector2, GameObject>();//used to keep track of chunks
     private List<Vector2> activeChunks = new List<Vector2>();//keep track of active chunks
-    //private List<Vector2> loadedChunks = new List<Vector2>();//to remove unactive chunks when they get two far away
+    //private List<Vector2> loadedChunks = new List<Vector2>();//to remove unactive chunks when they get two far away, maybe make anouther dictionary to store the byte array for each chunk so the game object can be deleted
     private List<Vector2> chunkQueue = new List<Vector2>();
     private bool isLoadingChunks;
 
