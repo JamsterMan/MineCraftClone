@@ -18,14 +18,16 @@ public class WorldGenerator : MonoBehaviour
     private Vector2 lastPlayerPosition;
 
     private Dictionary<Vector2, GameObject> worldMap = new Dictionary<Vector2, GameObject>();//used to keep track of chunks
-    private List<Vector2> activeChunks = new List<Vector2>();
+    private List<Vector2> activeChunks = new List<Vector2>();//keep track of active chunks
+    //private List<Vector2> loadedChunks = new List<Vector2>();//to remove unactive chunks when they get two far away
+    private List<Vector2> chunkQueue = new List<Vector2>();
+    private bool isLoadingChunks;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //worldMap = new Dictionary<Vector2, GameObject>();
-        //activeChunks = new List<GameObject>();
+        isLoadingChunks = false;
         perlinOffsetX = Random.Range(0f, 9999f);//for random world geration
         perlinOffsetZ = Random.Range(0f, 9999f);//for random world geration
         lastPlayerPosition.x = player.position.x;
@@ -36,7 +38,8 @@ public class WorldGenerator : MonoBehaviour
         for (int x = -start; x < end; x++) {
             for (int z = -start; z < end; z++) {
                 Vector2 key = new Vector2(x, z);
-                CreateChunk(key, x, z);
+                CreateChunk(key);
+                activeChunks.Add(key);
             }
         }
     }
@@ -50,6 +53,9 @@ public class WorldGenerator : MonoBehaviour
             LoadVisableChunks();
             UnloadChunks();
         }
+        if (chunkQueue.Count > 0 && !isLoadingChunks) {
+            StartCoroutine(LoadChunks());
+        }
 
     }
 
@@ -60,31 +66,55 @@ public class WorldGenerator : MonoBehaviour
         for (int x = -start + xOff; x < end + xOff; x++) {
             for (int z = -start + zOff; z < end + zOff; z++) {
                 Vector2 key = new Vector2(x, z);
-                if (!worldMap.ContainsKey(key)) {//checks if chunk has already been made
-                    CreateChunk(key, x, z);
-                } else if (!worldMap[key].activeSelf) {//activeself is true if game object is activated
-                    worldMap[key].SetActive(true);
-                }//else the chunk is already loaded and active
+                if (!chunkQueue.Contains(key)) {//prevent key being added twice for not being done in the corutine
+                    if (!worldMap.ContainsKey(key)) {//checks if chunk has already been made
+                        chunkQueue.Add(key);//replaces create chunks cause we want these chunks to load in one at a time per frame
+                    } else if (!worldMap[key].activeSelf) {//activeself is true if game object is activated
+                        worldMap[key].SetActive(true);
+                        activeChunks.Add(key);
+                    }//else the chunk is already loaded and active
+                }
             }
         }
     }
 
     void UnloadChunks()
     {
+        List<Vector2> stillActiveChunks = new List<Vector2>();
         foreach (Vector2 activeChunkKey in activeChunks) {//check if the active chunks are too far away from the player
             if(Mathf.Abs(activeChunkKey.x - (player.position.x / chunkSize)) > WorldSize/2 || Mathf.Abs(activeChunkKey.y - (player.position.z / chunkSize)) > WorldSize/2) {//player.postion / chunksize = chunk pos
                 worldMap[activeChunkKey].SetActive(false);
+            } else {
+                stillActiveChunks.Add(activeChunkKey);
             }
         }
+        activeChunks = stillActiveChunks;
     }
 
-    void CreateChunk(Vector2 key, int x, int z)
+    void CreateChunk(Vector2 key)
     {
-        Vector3 pos = new Vector3(x * chunkSize, 0, z * chunkSize);
+        Vector3 pos = new Vector3(key.x * chunkSize, 0, key.y * chunkSize);
         GameObject curChunk = Instantiate(chunk, pos, Quaternion.identity);
         curChunk.transform.parent = transform;
         worldMap.Add(key, curChunk);//chunks # will be player position/10 rounded down
-        activeChunks.Add(key);
+    }
+
+    private IEnumerator LoadChunks()
+    {
+        isLoadingChunks = true;
+
+        while(chunkQueue.Count > 0) {
+            Vector2 key = chunkQueue[0];
+            chunkQueue.RemoveAt(0);
+            Vector3 pos = new Vector3(key.x * chunkSize, 0, key.y * chunkSize);
+            GameObject curChunk = Instantiate(chunk, pos, Quaternion.identity);
+            curChunk.transform.parent = transform;
+            worldMap.Add(key, curChunk);
+            activeChunks.Add(key);
+            yield return null;
+        }
+
+        isLoadingChunks = false;
     }
 }
 
