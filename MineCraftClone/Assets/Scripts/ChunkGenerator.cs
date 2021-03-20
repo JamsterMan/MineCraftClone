@@ -54,7 +54,7 @@ public class ChunkGenerator : MonoBehaviour
         int x, y, z, dirtHieght = 5;
         for (x = 0; x < MeshData.chunkWidth; x++) {
             for (z = 0; z < MeshData.chunkWidth; z++) {
-                int noiseOffset = AddNoise(x,z);//add perlin noise to chunk hieght to vary hieght
+                int noiseOffset = AddHieght(x,z);//add perlin noise to chunk hieght to vary hieght
                 int yHieght = MeshData.chunkHieght + noiseOffset;
 
                 for (y = 0; y < MeshData.chunkHieghtMax; y++) {
@@ -74,11 +74,14 @@ public class ChunkGenerator : MonoBehaviour
         }
     }
 
-    int AddNoise(int x, int z)
+    int AddHieght(int x, int z)
     {
+        int hieght;
         float perlinX = ((float)(x + transform.position.x)) / world.noiseScale;
         float perlinZ = ((float)(z + transform.position.z)) / world.noiseScale;
-        return Mathf.FloorToInt(Mathf.PerlinNoise(perlinX + world.perlinOffsetX, perlinZ + world.perlinOffsetZ) * world.offsetScale);//add perlin noise to chunk hieght to vary hieght
+        float noise = Mathf.PerlinNoise(perlinX + world.perlinOffsetX, perlinZ + world.perlinOffsetZ) + Mathf.PerlinNoise(perlinX + world.perlinOffsetX + world.perlinSecondOff, perlinZ + world.perlinOffsetZ + world.perlinSecondOff);
+        hieght = Mathf.FloorToInt(noise * world.offsetScale);//add perlin noise to chunk hieght to vary hieght
+        return hieght;
     }
 
     //adds visable sides of the cube at cubePosition t othe mesh lists (visableVertices and visableTriangles)

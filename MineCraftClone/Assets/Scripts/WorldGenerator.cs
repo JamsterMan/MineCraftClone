@@ -6,7 +6,7 @@ public class WorldGenerator : MonoBehaviour
 {
     public GameObject chunk;
     public int WorldSize = 2;//number of chunks in active in the world
-    public float perlinOffsetX, perlinOffsetZ;
+    public float perlinOffsetX, perlinOffsetZ, perlinSecondOff;
     public float noiseScale = 0.3f, offsetScale = 10.0f;//perlin noise in unity changes base on the decimals, offsetScale determines how much the noise changes the height
 
     public Transform player;
@@ -30,10 +30,11 @@ public class WorldGenerator : MonoBehaviour
         isLoadingChunks = false;
         perlinOffsetX = Random.Range(0f, 9999f);//for random world geration
         perlinOffsetZ = Random.Range(0f, 9999f);//for random world geration
+        perlinSecondOff = Random.Range(0f, 9999f);
         lastPlayerPosition.x = player.position.x;
         lastPlayerPosition.y = player.position.z;
 
-        start = (int)Mathf.Floor(WorldSize / 2f);
+        start = (int)Mathf.Ceil(WorldSize / 2f);
         end = (int)Mathf.Ceil(WorldSize / 2f);
         for (int x = -start; x < end; x++) {
             for (int z = -start; z < end; z++) {
