@@ -9,7 +9,7 @@ public static class MeshData
     public static readonly int chunkHieghtMax = 100;//hieght limit for the world
 
     //change this number any time the atlas texture gets more blocks added to it
-    public static readonly int blocksPerAtlasRow = 2;//number of different blocks accross a atlas
+    public static readonly int blocksPerAtlasRow = 16;//number of different blocks accross a atlas
 
     public static readonly Vector3[] vertices = new Vector3[8]//vertices used for drawing cubes
         {
