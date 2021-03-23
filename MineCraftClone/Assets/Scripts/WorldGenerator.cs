@@ -31,8 +31,6 @@ public class WorldGenerator : MonoBehaviour
         perlinOffsetX = Random.Range(0f, 9999f);//for random world geration
         perlinOffsetZ = Random.Range(0f, 9999f);//for random world geration
         perlinSecondOff = Random.Range(0f, 9999f);
-        lastPlayerPosition.x = player.position.x;
-        lastPlayerPosition.y = player.position.z;
 
         start = (int)Mathf.Ceil(WorldSize / 2f);
         end = (int)Mathf.Ceil(WorldSize / 2f);
@@ -43,14 +41,19 @@ public class WorldGenerator : MonoBehaviour
                 activeChunks.Add(key);
             }
         }
+        
+        //player.position = new Vector3(5f,,5f);//use perlin noise function to find the correct player hieght
+
+        lastPlayerPosition.x = Mathf.FloorToInt(player.position.x / chunkSize);
+        lastPlayerPosition.y = Mathf.FloorToInt(player.position.z / chunkSize);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (lastPlayerPosition.x != player.position.x || lastPlayerPosition.y != player.position.z) {//check if the player hased moved
-            lastPlayerPosition.x = player.position.x;
-            lastPlayerPosition.y = player.position.z;
+        if (lastPlayerPosition.x != Mathf.FloorToInt(player.position.x / chunkSize) || lastPlayerPosition.y != Mathf.FloorToInt(player.position.z / chunkSize)) {//check if the player hased moved to a different chunk
+            lastPlayerPosition.x = Mathf.FloorToInt(player.position.x / chunkSize);
+            lastPlayerPosition.y = Mathf.FloorToInt(player.position.z / chunkSize);
             LoadVisableChunks();
             UnloadChunks();
         }
@@ -82,8 +85,10 @@ public class WorldGenerator : MonoBehaviour
     void UnloadChunks()
     {
         List<Vector2> stillActiveChunks = new List<Vector2>();
+        int xOff = Mathf.FloorToInt(player.position.x / chunkSize);//divide by chunkSize to change block pos to chunk pos
+        int zOff = Mathf.FloorToInt(player.position.z / chunkSize);
         foreach (Vector2 activeChunkKey in activeChunks) {//check if the active chunks are too far away from the player
-            if(Mathf.Abs(activeChunkKey.x - (player.position.x / chunkSize)) > WorldSize/2 || Mathf.Abs(activeChunkKey.y - (player.position.z / chunkSize)) > WorldSize/2) {//player.postion / chunksize = chunk pos
+            if(Mathf.Abs(activeChunkKey.x - xOff) > WorldSize/2 || Mathf.Abs(activeChunkKey.y - zOff) > WorldSize/2) {//player.postion / chunksize = chunk pos
                 worldMap[activeChunkKey].SetActive(false);
             } else {
                 stillActiveChunks.Add(activeChunkKey);
