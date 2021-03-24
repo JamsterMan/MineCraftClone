@@ -540,18 +540,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chunk: {fileID: 7039929070537829618, guid: 709397c24fa45054b98b14affd17d2c8, type: 3}
   WorldSize: 10
+  seed: 123456
   perlinOffsetX: 0
   perlinOffsetZ: 0
-  perlinSecondOff: 0
-  perlinFreqScale: 0.5
-  perlinAmpScale: 0.5
+  perlinFreqScale: 1.1
+  perlinAmpScale: 0.6
   noiseScale: 15.4
   offsetScale: 15
   player: {fileID: 1898748440}
   layer:
     serializedVersion: 2
     m_Bits: 256
-  seed: 123456
   CubeTypes:
   - type: 0
     frontTextureID: 4
