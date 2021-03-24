@@ -77,11 +77,30 @@ public class ChunkGenerator : MonoBehaviour
     int AddHieght(int x, int z)
     {
         int hieght;
-        float perlinX = ((float)(x + transform.position.x)) / world.noiseScale;
-        float perlinZ = ((float)(z + transform.position.z)) / world.noiseScale;
-        float noise = Mathf.PerlinNoise(perlinX + world.perlinOffsetX, perlinZ + world.perlinOffsetZ) + Mathf.PerlinNoise(perlinX + world.perlinOffsetX + world.perlinSecondOff, perlinZ + world.perlinOffsetZ + world.perlinSecondOff);
-        hieght = Mathf.FloorToInt(noise * world.offsetScale);//add perlin noise to chunk hieght to vary hieght
+        float perlinX = ((float)(x + transform.position.x + 0.1f));
+        float perlinZ = ((float)(z + transform.position.z + 0.1f));
+        hieght = Mathf.FloorToInt(AddNoise(perlinX, perlinZ, world.noiseScale, 3, world.perlinAmpScale, world.perlinFreqScale) * world.offsetScale); ;
         return hieght;
+    }
+
+    float AddNoise(float x, float z, float scale, int levels, float ampScale, float freqScale)//levels = # of layered perlinNoise, ampScale should be 0 to 1
+    {
+        float noise = 0f;
+        float amp = 1f;
+        float freq = 1f;
+
+        for (int i = 0; i < levels; i++) {
+            float sampleX = (x + world.perlinOffsetX) / scale * freq;
+            float sampleZ = (z + world.perlinOffsetZ) / scale * freq;
+
+            float perlinVal = Mathf.PerlinNoise(sampleX, sampleZ);
+            noise += perlinVal * amp;
+
+            amp *= ampScale;
+            freq *= freqScale;
+        }
+
+        return noise;
     }
 
     //adds visable sides of the cube at cubePosition t othe mesh lists (visableVertices and visableTriangles)
