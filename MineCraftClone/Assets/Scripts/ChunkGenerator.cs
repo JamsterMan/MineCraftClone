@@ -15,6 +15,7 @@ public class ChunkGenerator : MonoBehaviour
     private List<Vector3> visableVertices;
     private List<Vector2> visableUvs;
     private int verticesIndex;
+    public GameObject chunkObject;
     WorldGenerator world;
 
 
@@ -25,6 +26,7 @@ public class ChunkGenerator : MonoBehaviour
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         meshCollider =  GetComponent<MeshCollider>();
+        chunkObject = this.gameObject;
         world = GameObject.Find("WorldGenerator").GetComponent<WorldGenerator>();
 
         verticesIndex = 0;
@@ -43,7 +45,7 @@ public class ChunkGenerator : MonoBehaviour
         for (x = 0; x < MeshData.chunkWidth; x++) {
             for (z = 0; z < MeshData.chunkWidth; z++) {
                 for (y = 0; y < MeshData.chunkHieghtMax; y++) {
-                    CreateCube(new Vector3(x, y, z));//transform position to place cube in the correct chunk
+                    CreateCube(new Vector3Int(x, y, z));//transform position to place cube in the correct chunk
                 }
             }
         }
@@ -104,9 +106,9 @@ public class ChunkGenerator : MonoBehaviour
     }
 
     //adds visable sides of the cube at cubePosition t othe mesh lists (visableVertices and visableTriangles)
-    void CreateCube(Vector3 cubePosition)
+    void CreateCube(Vector3Int cubePosition)
     {
-        CubeData cube = world.CubeTypes[(int)isCube[Mathf.FloorToInt(cubePosition.x), Mathf.FloorToInt(cubePosition.y), Mathf.FloorToInt(cubePosition.z)]];//gets the cubedata of the block being drawn
+        CubeData cube = world.CubeTypes[(int)isCube[cubePosition.x, cubePosition.y, cubePosition.z]];//gets the cubedata of the block being drawn
 
         if (cube.type == CubeData.CubeType.air)//air is not a visable block
             return;
@@ -151,11 +153,11 @@ public class ChunkGenerator : MonoBehaviour
     }
 
     //determines if the side of a cube is visable
-    bool ShowSide(Vector3 cubePosition)//determine if the side is blocked by a block
+    bool ShowSide(Vector3Int cubePosition)//determine if the side is blocked by a block
     {
-        int x = Mathf.FloorToInt(cubePosition.x);
-        int y = Mathf.FloorToInt(cubePosition.y);
-        int z = Mathf.FloorToInt(cubePosition.z);
+        int x = cubePosition.x;
+        int y = cubePosition.y;
+        int z = cubePosition.z;
         if (x < 0 || x > MeshData.chunkWidth-1 || y < 0 || y > MeshData.chunkHieghtMax-1 || z < 0 || z > MeshData.chunkWidth-1 )
             return false;
 

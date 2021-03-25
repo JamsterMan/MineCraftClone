@@ -25,7 +25,7 @@ public class MouseControl : MonoBehaviour
         xRotation -= mouseY;//- cause flipped rotation
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);//only rotate camera for up and down
+        playerBody.Rotate(Vector3.up * mouseX);//rotate whole player side to side
     }
 }

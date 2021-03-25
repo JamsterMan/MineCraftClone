@@ -11,16 +11,16 @@ public static class MeshData
     //change this number any time the atlas texture gets more blocks added to it
     public static readonly int blocksPerAtlasRow = 16;//number of different blocks accross a atlas
 
-    public static readonly Vector3[] vertices = new Vector3[8]//vertices used for drawing cubes
+    public static readonly Vector3Int[] vertices = new Vector3Int[8]//vertices used for drawing cubes
         {
-            new Vector3 (0f,0f,0f),//0
-            new Vector3 (1f,0f,0f),//1
-            new Vector3 (1f,1f,0f),//2
-            new Vector3 (0f,1f,0f),//3
-            new Vector3 (0f,1f,1f),//4
-            new Vector3 (1f,1f,1f),//5
-            new Vector3 (1f,0f,1f),//6
-            new Vector3 (0f,0f,1f),//7
+            new Vector3Int (0,0,0),//0
+            new Vector3Int (1,0,0),//1
+            new Vector3Int (1,1,0),//2
+            new Vector3Int (0,1,0),//3
+            new Vector3Int (0,1,1),//4
+            new Vector3Int (1,1,1),//5
+            new Vector3Int (1,0,1),//6
+            new Vector3Int (0,0,1),//7
         };
 
     public static readonly int[,] triangles = new int[6,4]//ints in this 2d array reffer to the vertices in the vertices array
@@ -47,13 +47,35 @@ public static class MeshData
             new Vector2 ( 1.0f, 1.0f),
         };
 
-    public static readonly Vector3[] faceCheck = new Vector3[6]//these vectors are used to check if each side of a cube should be drawn
+    public static readonly Vector3Int[] faceCheck = new Vector3Int[6]//these vectors are used to check if each side of a cube should be drawn
         {
-            new Vector3 (0f,0f,-1f),//front
-            new Vector3 (0f,1f,0f),//top
-            new Vector3 (1f,0f,0f),//right
-            new Vector3 (-1f,0f,0f),//left
-            new Vector3 (0f,0f,1f),//back
-            new Vector3 (0f,-1f,0f)//bottom
+            new Vector3Int (0,0,-1),//front
+            new Vector3Int (0,1,0),//top
+            new Vector3Int (1,0,0),//right
+            new Vector3Int (-1,0,0),//left
+            new Vector3Int (0,0,1),//back
+            new Vector3Int (0,-1,0)//bottom
         };
+
+    /*
+    static readonly WorldGenerator world = GameObject.Find("WorldGenerator").GetComponent<WorldGenerator>();
+    public static float AddNoise(float x, float z, float scale, int levels, float ampScale, float freqScale)//levels = # of layered perlinNoise, ampScale should be 0 to 1
+    {
+        float noise = 0f;
+        float amp = 1f;
+        float freq = 1f;
+
+        for (int i = 0; i < levels; i++) {
+            float sampleX = (x + world.perlinOffsetX) / scale * freq;
+            float sampleZ = (z + world.perlinOffsetZ) / scale * freq;
+
+            float perlinVal = Mathf.PerlinNoise(sampleX, sampleZ);
+            noise += perlinVal * amp;
+
+            amp *= ampScale;
+            freq *= freqScale;
+        }
+
+        return noise;
+    }*/
 }
