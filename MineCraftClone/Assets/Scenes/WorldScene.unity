@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 1330589046}
   - component: {fileID: 1330589045}
   m_Layer: 0
-  m_Name: highlight
+  m_Name: destroyHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -758,7 +758,8 @@ MonoBehaviour:
   highlight: {fileID: 1330589048}
   world: {fileID: 1955019060}
   increment: 0.2
-  reach: 10
+  reach: 6.5
+  highlightPlace: {fileID: 0}
 --- !u!1 &1955019059
 GameObject:
   m_ObjectHideFlags: 0

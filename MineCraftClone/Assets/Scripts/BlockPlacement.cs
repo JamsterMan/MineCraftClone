@@ -6,13 +6,11 @@ public class BlockPlacement : MonoBehaviour
 {
     public Transform highlight;
     public WorldGenerator world;
-    public float increment = 0.2f;
+    public float increment = 0.05f;
     public float reach = 3.0f;
 
     private Camera mainCamera;
     private Vector3 placePosition;
-    //private Vector3 LastHighlightPos;
-    public Transform highlightPlace;
 
     void Start()
     {
@@ -41,11 +39,6 @@ public class BlockPlacement : MonoBehaviour
                 highlight.position = new Vector3(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z)) + new Vector3(0.5f,0.5f,0.5f);
                 highlight.gameObject.SetActive(true);
 
-                //highlightPlace.position = placePosition;
-                //highlightPlace.gameObject.SetActive(true);
-
-                //if the subtraction has two values that are equal or opposite ( 1 and 1, or 1 and -1) then the block will be placed diaganally from the block, so change it to choose a side
-                //Debug.Log(highlight.position + " , " + highlightPlace.position + " , " + (highlight.position - highlightPlace.position) );
                 return;
             }
             placePosition = new Vector3(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z)) + new Vector3(0.5f, 0.5f, 0.5f);//use this for placing blocks
@@ -53,8 +46,13 @@ public class BlockPlacement : MonoBehaviour
         }
         
         highlight.gameObject.SetActive(false);
-        highlightPlace.gameObject.SetActive(false);
     }
+
+    /*void FixPlacePosition()//stop blocks from getting placed diaganally off of blocks
+    {
+        //if the subtraction has two values that are equal or opposite ( 1 and 1, or 1 and -1) then the block will be placed diaganally from the block, so change it to choose a side
+        //Debug.Log(highlight.position + " , " + placePosition + " , " + (highlight.position - placePosition) );
+    }*/
 
     void DestroyBlock()
     {
