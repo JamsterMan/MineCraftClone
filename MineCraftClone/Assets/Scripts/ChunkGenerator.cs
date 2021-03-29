@@ -176,4 +176,19 @@ public class ChunkGenerator : MonoBehaviour
 
         meshCollider.sharedMesh = mesh;
     }
+
+    public void UpdateChunk()
+    {
+        ClearMeshData();
+        CreateChunk();
+        UpdateMesh();
+    }
+
+    void ClearMeshData()
+    {
+        verticesIndex = 0;
+        visableTriangles.Clear();
+        visableVertices.Clear();
+        visableUvs.Clear();
+    }
 }

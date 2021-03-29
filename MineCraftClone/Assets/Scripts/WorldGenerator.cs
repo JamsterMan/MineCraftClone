@@ -136,6 +136,20 @@ public class WorldGenerator : MonoBehaviour
         }
         return false;
     }
+
+    /*
+     * changes the cubetype of the block/voxel at pos to cubeType
+     * use to add or remove blocks
+     */
+    public void ChangeBlock(Vector3Int pos, byte cubeType)
+    {
+        Vector2Int key = new Vector2Int(Mathf.FloorToInt((pos.x * 1f) / chunkSize), Mathf.FloorToInt((pos.z * 1f) / chunkSize));
+        if (worldMap.ContainsKey(key)) {
+            worldMap[key].isCube[pos.x - (key.x * chunkSize), pos.y, pos.z - (key.y * chunkSize)] = cubeType;//set the block type to air
+            worldMap[key].UpdateChunk();
+        }
+    }
+
 }
 
 
