@@ -110,7 +110,7 @@ public class ChunkGenerator : MonoBehaviour
     {
         CubeData cube = world.CubeTypes[(int)isCube[cubePosition.x, cubePosition.y, cubePosition.z]];//gets the cubedata of the block being drawn
 
-        if (cube.type == CubeData.CubeType.air)//air is not a visable block
+        if (cube.getCubeType() == CubeData.CubeType.air)//air is not a visable block
             return;
 
         for (int i = 0; i < cubeSides; i++) {//front, top, right, left, back, bottom

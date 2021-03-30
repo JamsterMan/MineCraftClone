@@ -46,6 +46,11 @@ public class CubeData
         }
     }
 
+    public CubeType getCubeType()
+    {
+        return type;
+    }
+
     //decide what texture to use by the type
 }
 

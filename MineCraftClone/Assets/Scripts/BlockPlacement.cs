@@ -6,6 +6,7 @@ public class BlockPlacement : MonoBehaviour
 {
     public Transform highlight;
     public WorldGenerator world;
+    public UI_hotbar hotbar;
     public float increment = 0.05f;
     public float reach = 3.0f;
 
@@ -41,18 +42,12 @@ public class BlockPlacement : MonoBehaviour
 
                 return;
             }
-            placePosition = new Vector3(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z)) + new Vector3(0.5f, 0.5f, 0.5f);//use this for placing blocks
+            placePosition = new Vector3(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z)) + new Vector3(0.5f, 0.5f, 0.5f);//use this for placing blocks, could be adjusted to stop diaganal placements
             step += increment;
         }
         
         highlight.gameObject.SetActive(false);
     }
-
-    /*void FixPlacePosition()//stop blocks from getting placed diaganally off of blocks
-    {
-        //if the subtraction has two values that are equal or opposite ( 1 and 1, or 1 and -1) then the block will be placed diaganally from the block, so change it to choose a side
-        //Debug.Log(highlight.position + " , " + placePosition + " , " + (highlight.position - placePosition) );
-    }*/
 
     void DestroyBlock()
     {
@@ -63,6 +58,6 @@ public class BlockPlacement : MonoBehaviour
     void PlaceBlock()
     {
         Vector3 pos = placePosition;// highlightPlace.position;
-        world.ChangeBlock(new Vector3Int(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z)), (byte)CubeData.CubeType.stone);//change this to place the block selected on hotbar instead of stone
+        world.ChangeBlock(new Vector3Int(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z)), (byte)hotbar.GetSelectedItem());//change this to place the block selected on hotbar instead of stone
     }
 }

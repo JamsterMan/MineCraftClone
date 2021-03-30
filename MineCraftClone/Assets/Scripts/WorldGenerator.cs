@@ -8,7 +8,6 @@ public class WorldGenerator : MonoBehaviour
     public int WorldSize = 2;//number of chunks in active in the world
 
     public int seed;
-    public float perlinOffsetX, perlinOffsetZ, perlinFreqScale;
     [Range(0, 1)]
     public float perlinAmpScale;
     public float noiseScale = 0.3f, offsetScale = 10.0f;//perlin noise in unity changes base on the decimals, offsetScale determines how much the noise changes the height
@@ -17,6 +16,7 @@ public class WorldGenerator : MonoBehaviour
     public LayerMask layer;
 
     public CubeData[] CubeTypes;
+    public float perlinOffsetX, perlinOffsetZ, perlinFreqScale;
 
     private readonly int chunkSize = 10;//number of blocks in a chunk
     private int start, end;
