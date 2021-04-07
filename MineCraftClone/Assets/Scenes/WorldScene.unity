@@ -2408,7 +2408,7 @@ MonoBehaviour:
     leftTextureID: 0
     backTextureID: 0
     bottomTextureID: 0
-    isVisable: 0
+    isVisable: 1
   - type: 2
     frontTextureID: 2
     topTextureID: 1

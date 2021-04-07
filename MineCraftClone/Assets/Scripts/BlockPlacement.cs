@@ -12,19 +12,21 @@ public class BlockPlacement : MonoBehaviour
 
     private Camera mainCamera;
     private Vector3 placePosition;
+    private bool blockHighlighted;
 
     void Start()
     {
         mainCamera = Camera.main;
+        blockHighlighted = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         HighlightBlock();
-        if (Input.GetMouseButtonDown(0)) {//left click destroy
+        if (Input.GetMouseButtonDown(0) && blockHighlighted) {//left click destroy
             DestroyBlock();
-        }else if (Input.GetMouseButtonDown(1)) {//right click place
+        }else if (Input.GetMouseButtonDown(1) && blockHighlighted) {//right click place
             PlaceBlock();
         }
     }
@@ -39,6 +41,7 @@ public class BlockPlacement : MonoBehaviour
             if (world.DoesBlockExist(posInt)) {
                 highlight.position = new Vector3(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z)) + new Vector3(0.5f,0.5f,0.5f);
                 highlight.gameObject.SetActive(true);
+                blockHighlighted = true;
 
                 return;
             }
@@ -47,6 +50,7 @@ public class BlockPlacement : MonoBehaviour
         }
         
         highlight.gameObject.SetActive(false);
+        blockHighlighted = false;
     }
 
     void DestroyBlock()
