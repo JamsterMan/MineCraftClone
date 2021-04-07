@@ -13,7 +13,7 @@ public class Movement : MonoBehaviour
     public float groundDistance = 0.3f;
     public LayerMask groundMask;
 
-    public float jumpHieght = 1.1f;
+    public float jumpHieght = 1.5f;
 
     Vector3 velocity;
     bool isGrounded;

@@ -64,7 +64,6 @@ public class UI_hotbar : MonoBehaviour
 
     public CubeData.CubeType GetSelectedItem()
     {
-        Debug.Log("returning type: " + type);
         return type;
     }
 }
