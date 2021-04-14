@@ -150,6 +150,12 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
+    public CubeData.CubeType GetBlockType(Vector3Int pos)
+    {
+        Vector2Int key = new Vector2Int(Mathf.FloorToInt((pos.x * 1f) / chunkSize), Mathf.FloorToInt((pos.z * 1f) / chunkSize));
+        return (CubeData.CubeType)worldMap[key].isCube[pos.x - (key.x * chunkSize), pos.y, pos.z - (key.y * chunkSize)];
+    }
+
 }
 
 

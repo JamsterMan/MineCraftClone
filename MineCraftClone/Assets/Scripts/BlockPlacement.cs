@@ -56,6 +56,7 @@ public class BlockPlacement : MonoBehaviour
     void DestroyBlock()
     {
         Vector3 pos = highlight.position;
+        hotbar.AddItemToHotbar(world.GetBlockType(new Vector3Int(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z))), 1);
         world.ChangeBlock(new Vector3Int(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z)), (byte)CubeData.CubeType.air);
     }
 
@@ -63,5 +64,6 @@ public class BlockPlacement : MonoBehaviour
     {
         Vector3 pos = placePosition;// highlightPlace.position;
         world.ChangeBlock(new Vector3Int(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z)), (byte)hotbar.GetSelectedItem());//change this to place the block selected on hotbar instead of stone
+        hotbar.RemoveItemToHotbar();
     }
 }

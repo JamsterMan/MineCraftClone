@@ -23,6 +23,8 @@ public class CubeData
     public int backTextureID;
     public int bottomTextureID;
 
+    public Sprite HotbarIcon;
+
     public bool isVisable;
     //add variable for blocks that care about direction
 
