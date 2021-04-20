@@ -2751,13 +2751,15 @@ GameObject:
   - component: {fileID: 1330589047}
   - component: {fileID: 1330589046}
   - component: {fileID: 1330589045}
+  - component: {fileID: 1330589049}
+  - component: {fileID: 1330589050}
   m_Layer: 0
   m_Name: destroyHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1330589045
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2827,11 +2829,42 @@ Transform:
   m_GameObject: {fileID: 1330589044}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+  m_LocalScale: {x: 1.001, y: 1.001, z: 1.001}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1330589049
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330589044}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 638e394d92d647b479fadc549fc43620, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1330589050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330589044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c0de545c002f5449a8b90b4e6db2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1463421779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3924,7 +3957,7 @@ GameObject:
   - component: {fileID: 1898748442}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4000,6 +4033,7 @@ MonoBehaviour:
   highlight: {fileID: 1330589048}
   world: {fileID: 1955019060}
   hotbar: {fileID: 1909369930}
+  DestroyAni: {fileID: 1330589049}
   increment: 0.2
   reach: 6.5
 --- !u!1 &1909369929
@@ -4034,6 +4068,7 @@ MonoBehaviour:
   world: {fileID: 1955019060}
   hotbarHighlight: {fileID: 411562472}
   highlightStartPos: {x: 0, y: 0, z: 0}
+  hotbarItems: []
   hotbarIcons:
   - {fileID: 589043218}
   - {fileID: 1911338202}

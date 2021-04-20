@@ -23,6 +23,11 @@ public class UI_hotbar : MonoBehaviour
         itemIndex = 1;
         highlightStartPos = hotbarHighlight.localPosition;
         hotbarItemSize = hotbarHighlight.sizeDelta.x;
+
+        hotbarItems = new ItemData[9];
+        for (int i = 0; i < 9; i++) {
+            hotbarItems[i] = new ItemData();
+        }
     }
 
     void Update()

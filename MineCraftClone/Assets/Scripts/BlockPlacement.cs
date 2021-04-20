@@ -7,6 +7,7 @@ public class BlockPlacement : MonoBehaviour
     public Transform highlight;
     public WorldGenerator world;
     public UI_hotbar hotbar;
+    public Animator DestroyAni;
     public float increment = 0.05f;
     public float reach = 3.0f;
 
@@ -25,8 +26,14 @@ public class BlockPlacement : MonoBehaviour
     {
         HighlightBlock();
         if (Input.GetMouseButtonDown(0) && blockHighlighted) {//left click destroy
-            DestroyBlock();
-        }else if (Input.GetMouseButtonDown(1) && blockHighlighted) {//right click place
+            DestroyAni.SetBool("StartDestroy", true);
+            DestroyAni.SetBool("StopDestroy", false);
+        }
+        if (Input.GetMouseButtonUp(0) && blockHighlighted) {//left click destroy
+            DestroyAni.SetBool("StopDestroy", true);
+            DestroyAni.SetBool("StartDestroy", false);
+        }
+        if (Input.GetMouseButtonDown(1) && blockHighlighted) {//right click place
             PlaceBlock();
         }
     }
@@ -53,7 +60,8 @@ public class BlockPlacement : MonoBehaviour
         blockHighlighted = false;
     }
 
-    void DestroyBlock()
+    //called by animation state
+    public void DestroyBlock()
     {
         Vector3 pos = highlight.position;
         hotbar.AddItemToHotbar(world.GetBlockType(new Vector3Int(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z))), 1);
